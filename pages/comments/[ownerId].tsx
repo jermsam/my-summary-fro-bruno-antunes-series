@@ -68,7 +68,7 @@ export default function Profile({owner,authId,comments}:ProfileProps){
             <TableRow>
               <TableCell>Id</TableCell>
               <TableCell>Comment</TableCell>
-              <TableCell align="right">Actions</TableCell>
+              {authId&&(owner?.id===authId)&&<TableCell align="right">Actions</TableCell>}
             </TableRow>
           </TableHead>
           <TableBody>
@@ -111,6 +111,7 @@ export interface ProfileProps{
 
 export const getServerSideProps:GetServerSideProps<ProfileProps> = async (ctx) =>{
     const db = await openDB();
+    const cookie = ctx?.req?.headers.cookie;
     const authId = getAuthId(ctx)
     const {query:{ownerId}}=ctx
    const owner= await db.get<Person>('select id,name,email from Person where id = ?',ownerId)

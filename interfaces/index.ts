@@ -3,6 +3,7 @@ import { NextApiRequest, NextApiResponse, NextApiHandler, NextPageContext, } fro
 
 import Router  from 'next/router';
 import decode from 'jwt-decode'
+import sqlite3 from 'sqlite3';
 
 
   export const apiEndpoint =process.env.API_ENDPOINT
@@ -53,10 +54,10 @@ export const myGet = async(url:string,ctx?:NextPageContext)=>{
 
 
 
-export function getCookie(cname:string,ctx?:any) {
+export function getCookie(cname:string,cookie?:any) {
   console.log(cname)
   var name = cname + "=";
-  const cookie = ctx?.req?.headers.cookie;
+ 
   var decodedCookie = decodeURIComponent(cookie!);
   var ca = decodedCookie.split(';');
   for(var i = 0; i <ca.length; i++) {
@@ -73,7 +74,8 @@ export function getCookie(cname:string,ctx?:any) {
 
 export function getAuthId(ctx?:any){
   if(ctx){
-   const jwt =getCookie('auth',ctx);
+    const cookie = ctx?.req?.headers.cookie;
+   const jwt =getCookie('auth',cookie);
   if(jwt){
     const {sub} = decode(jwt);
     console.log(sub)
@@ -91,6 +93,28 @@ return
 }
   }
  }
+
+
+
+ export const authorized=(fn:NextApiHandler )=> async (req: NextApiRequest, res: NextApiResponse) => {
+
+  const cookie = req?.headers.cookie;
+
+  const jwt =getCookie('auth',cookie);
+
+  if(jwt){
+    const {sub} = decode(jwt);
+    const ownerId=req?.query.ownerId
+    if(sub.toString()===ownerId){
+      return await fn(req, res,)
+    }else{
+      res.status(401).json({message:'Sorry, you are not authorized!'})
+    }
+  }else{
+    res.status(401).json({message:'Sorry, you are not authenticated!'})
+  }
+
+}
 
 // you would have to import / invoke this in another file
 
