@@ -23,7 +23,11 @@ You can check it out in production by [clicking here](https://cartraderapp.herok
 
 ## About Bruno
 I feel you should find out about him by yourself:
- [Github](https://github.com/bmvantunes).
+
+[Github](https://github.com/bmvantunes).
+
 [Youtube](https://www.youtube.com/channel/UCyU0mNYdX9EHY7rc5yucIZA).
+
 [Linkedin](https://www.linkedin.com/in/bmvantunes/).
+
 [Twitter](https://twitter.com/bmvantunes).
