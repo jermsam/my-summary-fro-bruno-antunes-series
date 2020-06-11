@@ -58,21 +58,7 @@ export default function Profile({comments}:ProfileProps){
                   {id}
                 </TableCell>
                 <TableCell>{comment}</TableCell>
-                <TableCell align="right">
-                  <Button
-                    variant="contained"
-                    color="secondary"
-                    startIcon={<DeleteIcon />}
-                    onClick={async () => {
-                      const url=`${apiEndpoint}/comments`
-                      mutate(url,data.filter((comment:Comment)=>comment.id!==id),false)
-                      await  axios.delete(`${apiEndpoint}/comments?id=${id}`)
-                      trigger(url)
-                    }}
-                  >
-                    Delete
-                  </Button>
-                </TableCell>
+            
               </TableRow>
             ))}
           </TableBody>
