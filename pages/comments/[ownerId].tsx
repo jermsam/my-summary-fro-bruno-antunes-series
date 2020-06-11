@@ -13,7 +13,10 @@ import { openDB} from 'model/openDb'
 
 import { Comment } from 'model/Comment';
 export default function Profile({owner,authId,comments}:ProfileProps){
-  const {data} =useSWR(`${apiEndpoint}/comments`,{initialData:comments})
+
+  const url=`${apiEndpoint}/comments/${owner?.id}`
+
+  const {data} =useSWR(url,{initialData:comments})
 
     const logout =React.useCallback(
       async()=>{
@@ -57,7 +60,7 @@ export default function Profile({owner,authId,comments}:ProfileProps){
        <Box>
        
        { authId&&(owner?.id===authId)&&<Box margin={3}>
-      <AddComment {...{authId}}/>
+      <AddComment {...{authId,url}}/>
       </Box>}
       <TableContainer component={Paper}>
         <Table aria-label="simple table">
@@ -75,21 +78,21 @@ export default function Profile({owner,authId,comments}:ProfileProps){
                   {id}
                 </TableCell>
                 <TableCell>{comment}</TableCell>
-                <TableCell align="right">
+                {authId&&(owner?.id===authId)&&<TableCell align="right">
                   <Button
                     variant="contained"
                     color="secondary"
                     startIcon={<DeleteIcon />}
                     onClick={async () => {
-                      const url=`${apiEndpoint}/comments`
+                      
                       mutate(url,data.filter((comment:Comment)=>comment.id!==id),false)
-                      await  axios.delete(`${apiEndpoint}/comments?id=${id}`)
+                      await  axios.delete(`${url}?id=${id}`)
                       trigger(url)
                     }}
                   >
                     Delete
                   </Button>
-                </TableCell>
+                </TableCell>}
               </TableRow>
             ))}
           </TableBody>
@@ -115,8 +118,10 @@ export const getServerSideProps:GetServerSideProps<ProfileProps> = async (ctx) =
     console.log('owner: ',JSON.stringify(owner,null,4))
     const comments= await db.all<Comment[]>('select * from comment where ownerId=?',ownerId)
    
+
         
        if(owner){
+        console.log(owner.name,"'s comments: ",comments)
         return {props:{owner,authId,comments}}  
        }
        return {props:{owner:null,comments}}

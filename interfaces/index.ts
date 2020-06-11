@@ -79,7 +79,16 @@ export function getAuthId(ctx?:any){
     console.log(sub)
     return sub;
   }
-  return null
+  if(!ctx?.req){
+    Router.replace('/login')
+    return
+}else{
+    ctx.res?.writeHead(302,{
+        Location:`${process.env.URL}/login`
+    });
+ctx.res?.end();
+return
+}
   }
  }
 

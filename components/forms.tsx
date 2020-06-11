@@ -221,12 +221,15 @@ const initialComments: Comment = {
 };
 
 export interface AddCommentProps{
-  authId?:number
+  authId?:number;
+  url:string;
 }
 
-export function AddComment ({authId}:AddCommentProps){
+export function AddComment ({authId,url}:AddCommentProps){
 
-  const {data} =useSWR(`${apiEndpoint}/comments`)
+  const {data} =useSWR(url)
+
+  
 
   return(
           <Formik
@@ -237,11 +240,12 @@ export function AddComment ({authId}:AddCommentProps){
       setSubmitting(false);
       // first mutate the data before you even send it to server and do not revalidate
       values.id =data.length+1;
-      mutate(`${apiEndpoint}/comments`,[...data,values],false)
-         await axios.post(`${apiEndpoint}/comments`,values)
+      values.ownerId=authId;
+      mutate(url,[...data,values],false)
+         await axios.post(url,values)
           setSubmitting(false);
           // something changed on that end point please trigger it
-          trigger(  `${apiEndpoint}/comments`)
+          trigger(url)
        }
      }
   >

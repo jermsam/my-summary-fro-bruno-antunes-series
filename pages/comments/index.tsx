@@ -89,9 +89,9 @@ export interface ProfileProps{
 
 export const getServerSideProps:GetServerSideProps<ProfileProps> = async (ctx) =>{
     const db = await openDB();
-    console.log('url: ',process.env.URL)
+    
     const comments= await db.all<Comment[]>('select * from comment',)
-  
+    console.log("all comments: ",comments)
        return {props:{comments}}
      
   }
