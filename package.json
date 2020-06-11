@@ -3,13 +3,41 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start"
+    "dev": "node database-test.js && next dev",
+    "build": "env SECRET=wearesayingicantbreathgeorgefloyd next build",
+    "start": "next start",
+    "mock:api": "json-server --watch db.json --port 4000 -d 3000"
   },
   "dependencies": {
+    "@material-ui/core": "^4.10.1",
+    "@material-ui/icons": "^4.9.1",
+    "@types/cookie": "^0.4.0",
+    "axios": "^0.19.2",
+    "bcrypt": "^4.0.1",
+    "cookie": "^0.4.1",
+    "formik": "^2.1.4",
+    "js-cookie": "^2.2.1",
+    "jsonwebtoken": "^8.5.1",
+    "jwt-decode": "^2.2.0",
     "next": "9.4.4",
+    "nprogress": "^0.2.0",
     "react": "16.13.1",
-    "react-dom": "16.13.1"
+    "react-dom": "16.13.1",
+    "sqlite": "^4.0.10",
+    "sqlite3": "^4.2.0",
+    "swr": "^0.2.2",
+    "yup": "^0.29.1"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "^3.0.0",
+    "@types/js-cookie": "^2.2.6",
+    "@types/jsonwebtoken": "^8.5.0",
+    "@types/jwt-decode": "^2.2.1",
+    "@types/node": "^14.0.11",
+    "@types/nprogress": "^0.2.0",
+    "@types/react": "^16.9.35",
+    "@types/yup": "^0.29.2",
+    "dotenv": "^8.2.0",
+    "typescript": "^3.9.5"
   }
 }
