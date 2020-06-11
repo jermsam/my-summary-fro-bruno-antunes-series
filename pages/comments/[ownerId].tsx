@@ -111,7 +111,7 @@ export interface ProfileProps{
 
 export const getServerSideProps:GetServerSideProps<ProfileProps> = async (ctx) =>{
     const db = await openDB();
-    const cookie = ctx?.req?.headers.cookie;
+   
     const authId = getAuthId(ctx)
     const {query:{ownerId}}=ctx
    const owner= await db.get<Person>('select id,name,email from Person where id = ?',ownerId)

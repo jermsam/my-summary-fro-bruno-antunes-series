@@ -16,7 +16,7 @@ import sqlite3 from 'sqlite3';
       if(!err&&decoded){
         return await fn(req, res)
       }else{
-        res.status(401).json({message:'Sorry, you are not authenticated!'})
+        res.status(403).json({message:'Sorry, you are not authenticated!'})
       }
 
     });
@@ -111,7 +111,7 @@ return
       res.status(401).json({message:'Sorry, you are not authorized!'})
     }
   }else{
-    res.status(401).json({message:'Sorry, you are not authenticated!'})
+    res.status(403).json({message:'Sorry, you are not authenticated!'})
   }
 
 }
