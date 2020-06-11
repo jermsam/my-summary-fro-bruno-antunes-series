@@ -8,6 +8,10 @@
     "start": "next start",
     "mock:api": "json-server --watch db.json --port 4000 -d 3000"
   },
+  "engines": {
+    "node": ">=10.0.0",
+    "yarn": ">= 0.18.0"
+  },
   "dependencies": {
     "@material-ui/core": "^4.10.1",
     "@material-ui/icons": "^4.9.1",
