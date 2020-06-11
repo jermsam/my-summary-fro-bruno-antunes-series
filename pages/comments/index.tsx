@@ -6,9 +6,10 @@ import useSWR,{mutate,trigger} from 'swr'
 import DeleteIcon from '@material-ui/icons/Delete';
 import { openDB} from 'model/openDb'
 import { Comment } from 'model/Comment';
+import {apiEndpoint} from 'interfaces'
 
 export default function Profile({comments}:ProfileProps){
-  const {data} =useSWR('http://localhost:3000/api/comments',{initialData:comments})
+  const {data} =useSWR(`${apiEndpoint}/comments`,{initialData:comments})
 
 
     return <Box>
@@ -63,9 +64,9 @@ export default function Profile({comments}:ProfileProps){
                     color="secondary"
                     startIcon={<DeleteIcon />}
                     onClick={async () => {
-                      const url=`http://localhost:3000/api/comments`
+                      const url=`${apiEndpoint}/comments`
                       mutate(url,data.filter((comment:Comment)=>comment.id!==id),false)
-                      await  axios.delete(`http://localhost:3000/api/comments?id=${id}`)
+                      await  axios.delete(`${apiEndpoint}/comments?id=${id}`)
                       trigger(url)
                     }}
                   >
@@ -88,7 +89,7 @@ export interface ProfileProps{
 
 export const getServerSideProps:GetServerSideProps<ProfileProps> = async (ctx) =>{
     const db = await openDB();
-
+    console.log('url: ',process.env.URL)
     const comments= await db.all<Comment[]>('select * from comment',)
   
        return {props:{comments}}

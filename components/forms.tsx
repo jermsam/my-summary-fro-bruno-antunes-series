@@ -7,6 +7,7 @@ import axios from 'axios'
 import { Person,} from 'model/Person';
 import { Comment } from 'model/Comment';
 import useSWR,{mutate,trigger} from 'swr'
+import{apiEndpoint} from 'interfaces'
 
 const initialValues: Person = {
   name: '',
@@ -47,7 +48,7 @@ export  function LoginForm() {
       onSubmit={async (values, { setSubmitting }) => {
         const {email,password}=values;
         setSubmitting(true);
-        const resp = await fetch('http://localhost:3000/api/login',{
+        const resp = await fetch(`${apiEndpoint}/login`,{
           method:'POST',
           headers:{
              'content-Type':'application/json'
@@ -144,7 +145,7 @@ export  function SignupForm({setValue}:any) {
       onSubmit={async (values, { setSubmitting }) => {
         const {email,password,name}=values;
         setSubmitting(true);
-        const resp = await fetch('http://localhost:3000/api/signup',{
+        const resp = await fetch(`${apiEndpoint}/signup`,{
           method:'POST',
           headers:{
              'content-Type':'application/json'
@@ -225,7 +226,7 @@ export interface AddCommentProps{
 
 export function AddComment ({authId}:AddCommentProps){
 
-  const {data} =useSWR('http://localhost:3000/api/comments')
+  const {data} =useSWR(`${apiEndpoint}/comments`)
 
   return(
           <Formik
@@ -236,11 +237,11 @@ export function AddComment ({authId}:AddCommentProps){
       setSubmitting(false);
       // first mutate the data before you even send it to server and do not revalidate
       values.id =data.length+1;
-      mutate('http://localhost:3000/api/comments',[...data,values],false)
-         await axios.post('http://localhost:3000/api/comments',values)
+      mutate(`${apiEndpoint}/comments`,[...data,values],false)
+         await axios.post(`${apiEndpoint}/comments`,values)
           setSubmitting(false);
           // something changed on that end point please trigger it
-          trigger('http://localhost:3000/api/comments')
+          trigger(  `${apiEndpoint}/comments`)
        }
      }
   >

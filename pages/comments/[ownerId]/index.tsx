@@ -7,18 +7,18 @@ import React from "react";
 import useSWR,{mutate,trigger} from 'swr'
 import DeleteIcon from '@material-ui/icons/Delete';
 import { AddComment } from "components/forms";
-import {  getAuthId, } from "interfaces";
+import {  getAuthId, apiEndpoint} from "interfaces";
 import { Person,} from 'model/Person';
 import { openDB} from 'model/openDb'
 
 import { Comment } from 'model/Comment';
 export default function Profile({owner,authId,comments}:ProfileProps){
-  const {data} =useSWR('http://localhost:3000/api/comments',{initialData:comments})
+  const {data} =useSWR(`${apiEndpoint}/comments`,{initialData:comments})
 
     const logout =React.useCallback(
       async()=>{
         if(authId){
-         await  axios.post('http://localhost:3000/api/logout', {})
+         await  axios.post(`${apiEndpoint}/logout`, {})
          Router.push('/login')
         }
      },[authId]
@@ -81,9 +81,9 @@ export default function Profile({owner,authId,comments}:ProfileProps){
                     color="secondary"
                     startIcon={<DeleteIcon />}
                     onClick={async () => {
-                      const url=`http://localhost:3000/api/comments`
+                      const url=`${apiEndpoint}/comments`
                       mutate(url,data.filter((comment:Comment)=>comment.id!==id),false)
-                      await  axios.delete(`http://localhost:3000/api/comments?id=${id}`)
+                      await  axios.delete(`${apiEndpoint}/comments?id=${id}`)
                       trigger(url)
                     }}
                   >

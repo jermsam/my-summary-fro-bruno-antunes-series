@@ -8,6 +8,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 
 
+
 export default function Faq({faqs}:FaqProps) {
    
 
@@ -39,7 +40,7 @@ interface FaqProps{
 
 
 export const getStaticProps: GetStaticProps = async () => {
-    
+  
     const db = await openDB()
     const faqs = await db.all('SELECT * FROM FAQ ORDER BY createDate DESC')
 

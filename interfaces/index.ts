@@ -1,12 +1,12 @@
 import {verify} from 'jsonwebtoken'
 import { NextApiRequest, NextApiResponse, NextApiHandler, NextPageContext, } from "next"
-import { open } from 'sqlite'
-import sqlite3 from 'sqlite3'
+
 import Router  from 'next/router';
 import decode from 'jwt-decode'
 
 
-  
+  export const apiEndpoint =process.env.API_ENDPOINT
+
 
   export const authenticated =( fn:NextApiHandler )=> async (req: NextApiRequest, res: NextApiResponse) => {
 
@@ -41,7 +41,7 @@ export const myGet = async(url:string,ctx?:NextPageContext)=>{
           return
       }else{
           ctx.res?.writeHead(302,{
-              Location:'http://localhost:3000/login'
+              Location:`${process.env.URL}/login`
           });
   ctx.res?.end();
   return

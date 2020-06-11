@@ -18,6 +18,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import theme from 'src/theme';
 import Link from 'next/link';
 
+
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -48,7 +49,7 @@ export default function MyApp(props: AppProps) {
   const { Component, pageProps } = props;
   const classes = useStyles();
 
- console.log(process.env.MY_STEP)
+ 
 
   React.useEffect(() => {
     // Remove the server-side injected CSS.
