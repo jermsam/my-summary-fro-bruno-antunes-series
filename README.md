@@ -16,6 +16,7 @@ yarn dev
 If You must test this locally, You could [clone](https://github.com/jermsam/my-summary-fro-bruno-antunes-series.git) create a .env file in your root directory and define the following environment variables:
 
 SECRET=ANYUNIQUERANDOMSTRINGFORAUTHENTICATION
+
 URL=THEURLOFYOURAPP
 
 You can check it out in production by [clicking here](https://cartraderapp.herokuapp.com) - your feedback and contributions are welcome!
