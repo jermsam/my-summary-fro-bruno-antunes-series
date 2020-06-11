@@ -1,4 +1,4 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+This is a My summary of a couple thoughts I picked from [Bruno's Awesome Youtube Tutorials Up to Car Trader App](https://www.youtube.com/watch?v=7J4iL1HDshQ&list=PLYSZyzpwBEWSQsrukurP09ksi49H9Yj40&index=1).
 
 ## Getting Started
 
@@ -10,21 +10,19 @@ npm run dev
 yarn dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+## Env Variables to set
 
-## Learn More
+If You must test this locally, You could [clone](https://github.com/jermsam/my-summary-fro-bruno-antunes-series.git) create a .env file in your root directory and define the following environment variables:
 
-To learn more about Next.js, take a look at the following resources:
+SECRET=ANYUNIQUERANDOMSTRINGFORAUTHENTICATION
+URL=THEURLOFYOURAPP
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+You can check it out in production by [clicking here](https://cartraderapp.herokuapp.com) - your feedback and contributions are welcome!
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/import?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## About Bruno
+I feel you should find out about him by yourself:
+ [Github](https://github.com/bmvantunes).
+[Youtube](https://www.youtube.com/channel/UCyU0mNYdX9EHY7rc5yucIZA).
+[Linkedin](https://www.linkedin.com/in/bmvantunes/).
+[Twitter](https://twitter.com/bmvantunes).
