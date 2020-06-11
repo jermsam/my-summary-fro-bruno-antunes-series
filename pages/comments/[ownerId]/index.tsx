@@ -113,7 +113,7 @@ export const getServerSideProps:GetServerSideProps<ProfileProps> = async (ctx) =
    const owner= await db.get<Person>('select id,name,email from Person where id = ?',ownerId)
    
     console.log('owner: ',JSON.stringify(owner,null,4))
-    const comments= await db.all<Comment[]>('select * from comment where ownerId=?',owner?.id)
+    const comments= await db.all<Comment[]>('select * from comment where ownerId=?',ownerId)
    
         
        if(owner){
