@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "node database-test.js && next dev",
-    "build": "env SECRET=wearesayingicantbreathgeorgefloyd next build",
-    "start": "next start",
+    "build": "next build",
+    "start": "next start -p $PORT",
     "mock:api": "json-server --watch db.json --port 4000 -d 3000"
   },
   "engines": {
