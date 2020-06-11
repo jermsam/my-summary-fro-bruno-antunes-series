@@ -17,7 +17,7 @@ export default async (req:NextApiRequest, res:NextApiResponse) => {
     if(person) result = await bcrypt.compare(req.body.password,person.password)
       if(result){
         const claims = {sub:person.id,}
-       console.log('secret: ',process.env.SECRET)
+       
         const authToken =sign(claims,process.env.SECRET!,{expiresIn:'1h'});
         
         res.setHeader('Set-Cookie',serialize('auth',authToken,{
