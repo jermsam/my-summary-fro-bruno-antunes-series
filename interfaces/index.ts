@@ -3,7 +3,7 @@ import { NextApiRequest, NextApiResponse, NextApiHandler, NextPageContext, } fro
 
 import Router  from 'next/router';
 import decode from 'jwt-decode'
-import { openDB } from 'model/openDb';
+
 
 
   export const apiEndpoint =process.env.API_ENDPOINT
@@ -92,20 +92,5 @@ return
 }
   }
  }
-
- export interface Make {
-  make: string;
-  count: number;
-}
-
-export async function getMakes() {
-  const db = await openDB();
-  const makes = await db.all<Make[]>(`
-      SELECT make, count(*) as count
-      FROM car
-      GROUP BY make
-  `);
-  return makes;
-}
 
 

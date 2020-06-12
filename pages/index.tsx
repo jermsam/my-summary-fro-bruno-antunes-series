@@ -2,7 +2,8 @@ import { FormControl, Grid, InputLabel, makeStyles, MenuItem, Paper, Select } fr
 import { Field, Form, Formik } from 'formik';
 import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
-import { Make, getMakes } from 'interfaces';
+import { openDB } from 'model/openDb';
+
 
 
 export interface HomeProps {
@@ -48,7 +49,7 @@ export default function Home({ makes }: HomeProps) {
                     <MenuItem value="all">
                       <em>All Makes</em>
                     </MenuItem>
-                    {makes.map((make,index) => (
+                    {makes?.map((make,index) => (
                       <MenuItem key={index} value={make.make}>
                         {`${make.make} (${make.count})`}
                       </MenuItem>
@@ -102,8 +103,13 @@ export default function Home({ makes }: HomeProps) {
     </Formik>
   );
 }
+export interface Make {
+    make: string;
+    count: number;
+}
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const makes = await getMakes();
-  return { props: { makes } };
+    const db = await openDB();
+    const makes= await db.all('SELECT make, count(*) as count FROM car GROUP BY make',)
+  return { props: { makes} };
 };
