@@ -3,8 +3,6 @@ import { NextApiRequest, NextApiResponse, NextApiHandler, NextPageContext, } fro
 
 import Router  from 'next/router';
 import decode from 'jwt-decode'
-import sqlite3 from 'sqlite3';
-import { openDB } from 'model/openDb';
 
 
   export const apiEndpoint =process.env.API_ENDPOINT
@@ -17,7 +15,7 @@ import { openDB } from 'model/openDb';
       if(!err&&decoded){
         return await fn(req, res)
       }else{
-        res.status(403).json({message:'Sorry, you are not authenticated!'})
+        res.status(401).json({message:'Sorry, you are not authenticated!'})
       }
 
     });
@@ -55,10 +53,10 @@ export const myGet = async(url:string,ctx?:NextPageContext)=>{
 
 
 
-export function getCookie(cname:string,cookie?:any) {
+export function getCookie(cname:string,ctx?:any) {
   console.log(cname)
   var name = cname + "=";
- 
+  const cookie = ctx?.req?.headers.cookie;
   var decodedCookie = decodeURIComponent(cookie!);
   var ca = decodedCookie.split(';');
   for(var i = 0; i <ca.length; i++) {
@@ -75,8 +73,7 @@ export function getCookie(cname:string,cookie?:any) {
 
 export function getAuthId(ctx?:any){
   if(ctx){
-    const cookie = ctx?.req?.headers.cookie;
-   const jwt =getCookie('auth',cookie);
+   const jwt =getCookie('auth',ctx);
   if(jwt){
     const {sub} = decode(jwt);
     console.log(sub)
@@ -95,40 +92,8 @@ return
   }
  }
 
+// you would have to import / invoke this in another file
 
 
- export const authorized=(fn:NextApiHandler )=> async (req: NextApiRequest, res: NextApiResponse) => {
 
-  const cookie = req?.headers.cookie;
-
-  const jwt =getCookie('auth',cookie);
-
-  if(jwt){
-    const {sub} = decode(jwt);
-    const ownerId=req?.query.ownerId
-    if(sub.toString()===ownerId){
-      return await fn(req, res,)
-    }else{
-      res.status(401).json({message:'Sorry, you are not authorized!'})
-    }
-  }else{
-    res.status(403).json({message:'Sorry, you are not authenticated!'})
-  }
-
-}
-
-export interface Make {
-  make: string;
-  count: number;
-}
-
-export async function getMakes() {
-  const db = await openDB();
-  const makes = await db.all<Make[]>(`
-      SELECT make, count(*) as count
-      FROM car
-      GROUP BY make
-  `);
-  return makes;
-}
 
