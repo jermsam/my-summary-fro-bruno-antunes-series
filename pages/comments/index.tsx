@@ -48,7 +48,7 @@ export default function Profile({comments}:ProfileProps){
             <TableRow>
               <TableCell>Id</TableCell>
               <TableCell>Comment</TableCell>
-              <TableCell align="right">Actions</TableCell>
+             
             </TableRow>
           </TableHead>
           <TableBody>
@@ -58,7 +58,7 @@ export default function Profile({comments}:ProfileProps){
                   {id}
                 </TableCell>
                 <TableCell>{comment}</TableCell>
-            
+               
               </TableRow>
             ))}
           </TableBody>
