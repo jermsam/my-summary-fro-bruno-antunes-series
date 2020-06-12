@@ -49,7 +49,7 @@ export default function Home({ makes }: HomeProps) {
                       <em>All Makes</em>
                     </MenuItem>
                     {makes.map((make) => (
-                      <MenuItem value={make.make}>
+                      <MenuItem key={`${make.make}-${make.count}`} value={make.make}>
                         {`${make.make} (${make.count})`}
                       </MenuItem>
                     ))}
@@ -71,8 +71,8 @@ export default function Home({ makes }: HomeProps) {
                     <MenuItem value="all">
                       <em>No Min</em>
                     </MenuItem>
-                    {prices.map((price) => (
-                      <MenuItem value={price}>{price}</MenuItem>
+                    {prices.map((price,index) => (
+                      <MenuItem key={index} value={price}>{price}</MenuItem>
                     ))}
                   </Field>
                 </FormControl>
@@ -89,8 +89,8 @@ export default function Home({ makes }: HomeProps) {
                     <MenuItem value="all">
                       <em>No Max</em>
                     </MenuItem>
-                    {prices.map((price) => (
-                      <MenuItem value={price}>{price}</MenuItem>
+                    {prices.map((price,i) => (
+                      <MenuItem key={i} value={price}>{price}</MenuItem>
                     ))}
                   </Field>
                 </FormControl>
